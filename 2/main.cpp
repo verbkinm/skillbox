@@ -11,11 +11,11 @@
 
 double Stapler(int integer_part, int fractional_part)
 {
-    double tmp = abs(fractional_part);
+    double tmp = std::abs(fractional_part);
     while(tmp > 1)
         tmp /= 10;
 
-    tmp = static_cast<double>(std::abs(integer_part)) + std::abs(tmp);
+    tmp = std::abs(integer_part) + std::abs(tmp);
 
     if(integer_part < 0 || fractional_part < 0)
         return -tmp;
