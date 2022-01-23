@@ -37,8 +37,8 @@ int main()
     for(int i = 0; i < LIST_SIZE; i++)
         std::cin >> list[i];
 
-    for(int i = 0; i < LIST_SIZE; i++)
-        std::cout << numberToNote(list[i]);
+    for(auto const &str : list)
+        std::cout << numberToNote(str);
 
     return 0;
 }
