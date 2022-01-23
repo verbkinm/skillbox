@@ -14,14 +14,17 @@
 
 #include <iostream>
 #include <iomanip>
-#include <stdio.h>
-#include <limits>
+#include <sstream>
+#include <math.h>
 
-void print(double value)
+double discardN(double digit, uint8_t n)
 {
-    const auto digits = std::numeric_limits<double>::digits10;
-    std::cout << std::setfill(' ') << std::setw(digits + 4);
-    std::cout << std::fixed << std::setprecision(digits) << value << std::endl;
+    n = pow(10, n);
+    digit = (digit * n);
+    digit = static_cast<int>(digit);
+    digit /= n;
+
+    return digit;
 }
 
 int main()
@@ -29,18 +32,19 @@ int main()
     double speed = 0.0;
     double delta;
 
-    std::cout.precision(2);
-    std::cout.setf(std::ios::fixed);
     do
     {
-        std::cout << "Current speed: " << speed << " km/h" << std::endl;
+        std::string str;
+        std::stringstream stream(str);
+
+        stream << "Current speed: " << std::setprecision(1) << std::fixed << discardN(speed, 1);
+        str = stream.str();
+
+        std::cout << str << std::endl;
         std::cout << "Input delta: ";
         std::cin >> delta;
 
-        delta = (delta * 100);
-        delta = static_cast<int>(delta);
-        delta /= 100;
-        speed += delta;
+        speed += discardN(delta, 2);
 
         if(speed > 150.0)
             speed = 150.0;
