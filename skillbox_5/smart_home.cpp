@@ -18,8 +18,8 @@ void Smart_Home::readConfig()
     std::unique_ptr<Device> yard_water = std::make_unique<Device>("Water supply heating system"); // 6
     std::unique_ptr<Device> conditioner = std::make_unique<Device>("Conditioner"); // 7
 
-    std::unique_ptr<Sensor<int>> thermometer_1 = std::make_unique<Sensor<int>>("Thermometer in street");
-    std::unique_ptr<Sensor<int>> thermometer_2 = std::make_unique<Sensor<int>>("Thermometer in home");
+    std::unique_ptr<Sensor<double>> thermometer_1 = std::make_unique<Sensor<double>>("Thermometer on yard");
+    std::unique_ptr<Sensor<double>> thermometer_2 = std::make_unique<Sensor<double>>("Thermometer in home");
     std::unique_ptr<Sensor<bool>> outdoor_motion = std::make_unique<Sensor<bool>>("Outdoor motion sensor");
 
     power->enable();
@@ -53,7 +53,8 @@ void Smart_Home::readConfig()
     _sensors.push_back(std::move(outdoor_motion));
 }
 
-void Smart_Home::readSensors()
+// Эмулируем события с датчиков
+void Smart_Home::sensorsEvent()
 {
     std::string input;
 
@@ -63,21 +64,52 @@ void Smart_Home::readSensors()
     int h = 0, m = 0;
     char d;
 
-    std::cout << "Input data (time, temperature1, temperature2, motion, light)." << std::endl
-              << "Example: 16:35 20.2 -5 yes on" << std::endl;
+    std::cout << std::endl << "Input data (time, temperature on yard, temperature in home, motion, light)." << std::endl
+              << "Example: 16:35 20.2 -5 yes on" << std::endl
+              << "d - print debug information" << std::endl
+              << std::endl;
+    std::cout << ">> ";
     getline(std::cin, input);
+    std::cout << std::endl;
 
     std::stringstream stream(input);
     stream >> h >> d >> m >> t1 >> t2 >> motion >> ligth;
 
+    if(input == "d")
+    {
+        debugPrint();
+        return;
+    }
+
     Emulated_system::set_system_time({h, m});
 
+    auto it_sens = _sensors.begin();
+    static_cast<Sensor<double>*>(it_sens->get())->setValue(t1);
+    it_sens++;
+    static_cast<Sensor<double>*>(it_sens->get())->setValue(t2);
+    it_sens++;
+
+    bool mov = false;
+    if(motion == "yes")
+        mov = true;
+    static_cast<Sensor<bool>*>(it_sens->get())->setValue(mov);
+
+    auto it_dev = _devices.begin();
+    it_dev++;
+
+    if(ligth == "on")
+        it_dev->get()->enable();
+    else
+        it_dev->get()->disable();
+
+    for (auto &sensor : _sensors)
+        sensor->checkConditions();
 }
 
 void Smart_Home::debugPrint() const
 {
     std::cout << "==============================" << std::endl;
-
+    std::cout << "System time: " << Emulated_system::_system_time().toString() << std::endl;
     std::cout << "Device state: " << std::endl;
     for (auto const &dev : _devices)
     {

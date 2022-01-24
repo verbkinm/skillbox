@@ -11,6 +11,7 @@ public:
 
     const std::string &name() const;
 
+    virtual void checkConditions() = 0;
     virtual void printData() const = 0;
 
 private:

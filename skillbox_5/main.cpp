@@ -19,7 +19,11 @@ int main()
     Smart_Home smart_home;
     smart_home.readConfig();
     smart_home.debugPrint();
-    smart_home.readSensors();
 
+    while (1)
+    {
+        smart_home.sensorsEvent();
+//        smart_home.debugPrint();
+    }
     return 0;
 }

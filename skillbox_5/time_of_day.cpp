@@ -30,7 +30,7 @@ bool Time_of_day::inInterval(const Time_of_day &from, const Time_of_day &to, con
     return false;
 }
 
-uint Time_of_day::minutesInInterval(const Time_of_day &from, const Time_of_day &to)
+int Time_of_day::minutesInInterval(const Time_of_day &from, const Time_of_day &to)
 {
     if(from < to)
     {
@@ -57,12 +57,12 @@ Time_of_day::Time_of_day(int h, int m)
 }
 
 
-uint8_t Time_of_day::hours() const
+int Time_of_day::hours() const
 {
     return _hours;
 }
 
-uint8_t Time_of_day::minutes() const
+int Time_of_day::minutes() const
 {
     return _minutes;
 }
@@ -100,9 +100,8 @@ void Time_of_day::setFrom_string(std::string str)
 std::string Time_of_day::toString() const
 {
     std::stringstream ss;
-    ss << std::setfill('0') << std::setw (2) << hours()
-       << ":"
-       << std::setfill('0') << std::setw (2) << minutes();
+    ss << std::setfill('0') << std::setw(2) << hours() << ":";
+    ss << std::setfill('0') << std::setw(2) << minutes();
     return ss.str();
 }
 

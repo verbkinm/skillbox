@@ -31,7 +31,7 @@ public:
     virtual void printData() const override;
 
 private:
-    void checkConditions();
+    virtual void checkConditions() override;
 
     T value;
 
@@ -121,7 +121,7 @@ void Sensor<T>::checkConditions()
                 cond.device.disable();
             break;
         case Device::OPERATOR::GE:
-            if(getValue() > cond.value)
+            if(getValue() >= cond.value)
                 cond.device.disable();
             break;
         case Device::OPERATOR::EQ:

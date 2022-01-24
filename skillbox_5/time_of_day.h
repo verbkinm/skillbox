@@ -10,13 +10,13 @@ class Time_of_day
 public:
     static Time_of_day fromLocal_time();
     static bool inInterval(const Time_of_day &from, const Time_of_day &to, const Time_of_day &compareTime);
-    static uint minutesInInterval(const Time_of_day &from, const Time_of_day &to);
+    static int minutesInInterval(const Time_of_day &from, const Time_of_day &to);
 
     Time_of_day();
     Time_of_day(int h, int m);
 
-    uint8_t hours() const;
-    uint8_t minutes() const;
+    int hours() const;
+    int minutes() const;
 
     void setHours(int h);
     void setMinutes(int m);
@@ -36,7 +36,7 @@ public:
     int total_minutes() const;
 
 private:
-    int8_t _hours;
-    int8_t _minutes;
+    int _hours;
+    int _minutes;
 };
 

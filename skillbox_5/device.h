@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <iostream>
 #include "Emulated_system.h"
 
 class Device
@@ -19,8 +20,8 @@ public:
     void setWorkTime(Time_of_day from, Time_of_day to);
     bool isWorked() const;
 
-private:
-    void setState(bool newState);
+protected:
+    virtual void setState(bool newState);
 
     bool _state;
     std::string _name;

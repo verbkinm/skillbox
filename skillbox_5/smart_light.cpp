@@ -64,3 +64,17 @@ int Smart_Light::currentColorTemp() const
 
     return _color_temperature_default;
 }
+
+void Smart_Light::setState(bool newState)
+{
+    if(isWorked() && newState != _state)
+    {
+        _state = newState;
+        std::cout << "Smart light: \"" << _name << "\" is " << (_state ? "on" : "off");
+
+        if(_state)
+            std::cout << " (" << currentColorTemp() << "K)";
+
+        std::cout << std::endl;
+    }
+}

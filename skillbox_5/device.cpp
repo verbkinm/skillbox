@@ -40,6 +40,9 @@ bool Device::isWorked() const
 
 void Device::setState(bool newState)
 {
-    if(isWorked())
+    if(isWorked() && newState != _state)
+    {
         _state = newState;
+        std::cout << "Device: \"" << _name << "\" is " << (_state ? "on" : "off") << std::endl;
+    }
 }

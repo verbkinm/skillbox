@@ -18,7 +18,7 @@ public:
 
     //emulated Function
     void readConfig();
-    void readSensors();
+    void sensorsEvent();
 
     void debugPrint() const;
 

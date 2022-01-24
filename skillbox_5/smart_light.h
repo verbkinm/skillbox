@@ -19,6 +19,8 @@ public:
     void clearIntervalColor();
     int currentColorTemp() const;
 
+    virtual void setState(bool newState) override;
+
 private:
     uint _color_temperature_default;
     std::list<INTERVAL_COLOR> _intervals_color;
