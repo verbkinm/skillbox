@@ -5,6 +5,18 @@ Time_of_day::Time_of_day() : _hours(0), _minutes(0)
 
 }
 
+Time_of_day::Time_of_day(int h, int m)
+{
+    _hours = h % 24;
+    if(_hours < 0)
+        _hours += 24;
+    _hours += m / 60;
+
+    _minutes = m % 60;
+    if(_minutes < 0)
+        _minutes += 60;
+}
+
 Time_of_day Time_of_day::fromLocal_time()
 {
     time_t rawtime;
@@ -43,19 +55,6 @@ int Time_of_day::minutesInInterval(const Time_of_day &from, const Time_of_day &t
 
     return 0;
 }
-
-Time_of_day::Time_of_day(int h, int m)
-{
-    _hours = h % 24;
-    if(_hours < 0)
-        _hours += 24;
-    _hours += m / 60;
-
-    _minutes = m % 60;
-    if(_minutes < 0)
-        _minutes += 60;
-}
-
 
 int Time_of_day::hours() const
 {

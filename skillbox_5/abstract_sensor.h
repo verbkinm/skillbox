@@ -1,5 +1,4 @@
-#ifndef ABSTRACT_SENSOR_H
-#define ABSTRACT_SENSOR_H
+#pragma once
 
 #include <string>
 
@@ -7,7 +6,7 @@ class Abstract_Sensor
 {
 public:
     Abstract_Sensor(const std::string &name);
-    virtual ~Abstract_Sensor();
+    virtual ~Abstract_Sensor() = default;
 
     const std::string &name() const;
 
@@ -17,5 +16,3 @@ public:
 private:
     std::string _name;
 };
-
-#endif // ABSTRACT_SENSOR_H

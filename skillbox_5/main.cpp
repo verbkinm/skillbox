@@ -21,9 +21,7 @@ int main()
     smart_home.debugPrint();
 
     while (1)
-    {
         smart_home.sensorsEvent();
-//        smart_home.debugPrint();
-    }
+
     return 0;
 }

@@ -183,6 +183,7 @@ DIST          = ../../Qt/6.2.2/gcc_64/mkspecs/features/spec_pre.prf \
 		../../Qt/6.2.2/gcc_64/mkspecs/features/qt_config.prf \
 		../../Qt/6.2.2/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../Qt/6.2.2/gcc_64/mkspecs/features/spec_post.prf \
+		../skillbox_5/.qmake.stash \
 		../../Qt/6.2.2/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../Qt/6.2.2/gcc_64/mkspecs/features/toolchain.prf \
 		../../Qt/6.2.2/gcc_64/mkspecs/features/default_pre.prf \
@@ -337,6 +338,7 @@ Makefile: ../skillbox_5/skillbox_5.pro ../../Qt/6.2.2/gcc_64/mkspecs/linux-g++/q
 		../../Qt/6.2.2/gcc_64/mkspecs/features/qt_config.prf \
 		../../Qt/6.2.2/gcc_64/mkspecs/linux-g++/qmake.conf \
 		../../Qt/6.2.2/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../Qt/6.2.2/gcc_64/mkspecs/features/exclusive_builds.prf \
 		../../Qt/6.2.2/gcc_64/mkspecs/features/toolchain.prf \
 		../../Qt/6.2.2/gcc_64/mkspecs/features/default_pre.prf \
@@ -469,6 +471,7 @@ Makefile: ../skillbox_5/skillbox_5.pro ../../Qt/6.2.2/gcc_64/mkspecs/linux-g++/q
 ../../Qt/6.2.2/gcc_64/mkspecs/features/qt_config.prf:
 ../../Qt/6.2.2/gcc_64/mkspecs/linux-g++/qmake.conf:
 ../../Qt/6.2.2/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../Qt/6.2.2/gcc_64/mkspecs/features/exclusive_builds.prf:
 ../../Qt/6.2.2/gcc_64/mkspecs/features/toolchain.prf:
 ../../Qt/6.2.2/gcc_64/mkspecs/features/default_pre.prf:

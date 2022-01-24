@@ -2,6 +2,7 @@
 
 #include <list>
 #include <iostream>
+#include <memory>
 
 #include "device.h"
 #include "abstract_sensor.h"
@@ -28,12 +29,12 @@ public:
     void clearConditionOff();
     void clearConditionAll();
 
+protected:
     virtual void printData() const override;
-
-private:
     virtual void checkConditions() override;
 
-    T value;
+private:
+    T _value;
 
     std::list<CONDITION> _condOff;
     std::list<CONDITION> _condOn;
@@ -48,13 +49,13 @@ Sensor<T>::Sensor(const std::string &name) : Abstract_Sensor(name)
 template<class T>
 const T &Sensor<T>::getValue() const
 {
-    return value;
+    return _value;
 }
 
 template<class T>
 inline void Sensor<T>::setValue(const T &newValue)
 {
-    value = newValue;
+    _value = newValue;
     checkConditions();
 }
 
@@ -73,7 +74,7 @@ void Sensor<T>::addConditionOn(CONDITION cond)
 template<class T>
 void Sensor<T>::checkConditions()
 {
-    for(auto const &cond : _condOn)
+    for(auto cond : _condOn)
     {
         switch (cond.op)
         {

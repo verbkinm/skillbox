@@ -1,6 +1,6 @@
 #include "smart_light.h"
 
-Smart_Light::Smart_Light(const std::string &name, uint color_temperature) : Device(name),
+Smart_Light::Smart_Light(const std::string &name, int color_temperature) : Device(name),
     _color_temperature_default(color_temperature)
 {
 
@@ -67,14 +67,24 @@ int Smart_Light::currentColorTemp() const
 
 void Smart_Light::setState(bool newState)
 {
-    if(isWorked() && newState != _state)
+    if(!isWorked())
+        return;
+
+    if(!newState && (newState == _state))
+        return;
+
+    if(newState != _state)
     {
         _state = newState;
-        std::cout << "Smart light: \"" << _name << "\" is " << (_state ? "on" : "off");
-
-        if(_state)
-            std::cout << " (" << currentColorTemp() << "K)";
-
-        std::cout << std::endl;
+        if(!newState)
+        {
+            std::cout << "Smart light: \"" << _name << "\" is off" << std::endl;
+        }
+        else
+            std::cout << "Smart light: \"" << _name << "\" is on" << " (" << currentColorTemp() << "K)" << std::endl;
+    }
+    else if(newState && (newState == _state))
+    {
+        std::cout << "Smart light: \"" << _name << "\" (" << currentColorTemp() << "K)" << std::endl;
     }
 }

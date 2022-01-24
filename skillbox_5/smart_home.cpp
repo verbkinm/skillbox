@@ -1,17 +1,13 @@
 #include "smart_home.h"
 
-Smart_Home::Smart_Home()
-{
-
-}
-
-// Эмулируем чтение конфигурационного файла
+// Симулируем чтение конфигурационного файла
 void Smart_Home::readConfig()
 {
     _devices.clear();
     _sensors.clear();
 
-    std::unique_ptr<Device> power = std::make_unique<Device>("All power"); // 1
+//    std::unique_ptr<Device> main_power = std::make_unique<Device>("All power"); // 1
+//    std::unique_ptr<Device> main_sockets = std::make_unique<Device>("Main sockets"); // 2
     std::unique_ptr<Smart_Light> home_light = std::make_unique<Smart_Light>("Home light"); // 3
     std::unique_ptr<Device> yard_ligth = std::make_unique<Device>("Yard light"); // 4
     std::unique_ptr<Device> home_heating = std::make_unique<Device>("Home heating"); // 5
@@ -22,7 +18,6 @@ void Smart_Home::readConfig()
     std::unique_ptr<Sensor<double>> thermometer_2 = std::make_unique<Sensor<double>>("Thermometer in home");
     std::unique_ptr<Sensor<bool>> outdoor_motion = std::make_unique<Sensor<bool>>("Outdoor motion sensor");
 
-    power->enable();
     home_light->addIntervalColor({{16, 0}, {20, 0}, 5000, 2700});
     home_light->addIntervalColor({{20, 0}, {0, 0}, 2700, 2700});
     home_light->addIntervalColor({{0, 0}, {16, 0}, 5000, 5000});
@@ -41,7 +36,8 @@ void Smart_Home::readConfig()
     outdoor_motion->addConditionOn({*yard_ligth, true, Device::OPERATOR::EQ});
     outdoor_motion->addConditionOff({*yard_ligth, false, Device::OPERATOR::EQ});
 
-    _devices.push_back(std::move(power));
+//    _devices.push_back(std::move(main_power));
+//    _devices.push_back(std::move(main_sockets));
     _devices.push_back(std::move(home_light));
     _devices.push_back(std::move(yard_ligth));
     _devices.push_back(std::move(home_heating));
@@ -53,7 +49,7 @@ void Smart_Home::readConfig()
     _sensors.push_back(std::move(outdoor_motion));
 }
 
-// Эмулируем события с датчиков
+// Симулируем события с датчиков
 void Smart_Home::sensorsEvent()
 {
     std::string input;
@@ -69,6 +65,7 @@ void Smart_Home::sensorsEvent()
               << "d - print debug information" << std::endl
               << std::endl;
     std::cout << ">> ";
+
     getline(std::cin, input);
     std::cout << std::endl;
 
@@ -95,7 +92,7 @@ void Smart_Home::sensorsEvent()
     static_cast<Sensor<bool>*>(it_sens->get())->setValue(mov);
 
     auto it_dev = _devices.begin();
-    it_dev++;
+//    it_dev++;it_dev++;
 
     if(ligth == "on")
         it_dev->get()->enable();

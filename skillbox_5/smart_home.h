@@ -14,9 +14,9 @@ private:
 public:
     enum class OPERATOR { LT, GT, EQ };
 
-    Smart_Home();
+    Smart_Home() = default;
 
-    //emulated Function
+    //Симуляция
     void readConfig();
     void sensorsEvent();
 
