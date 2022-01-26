@@ -22,7 +22,7 @@ int main()
 
     std::cout << "Starting simulation." << std::endl << std::endl;
 
-    Emulated_system::set_system_time({15, 0});
+    Emulated_system::set_system_time({0, 0});
 
     for(uint8_t i = 0; i < 48; i++)
         smart_home.sensorsEvent();
