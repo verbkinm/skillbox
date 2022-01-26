@@ -16,11 +16,11 @@
 
 int main()
 {
+    std::cout << "Starting simulation." << std::endl << std::endl;
+    
     Smart_Home smart_home;
     smart_home.readConfig();
     smart_home.debugPrint();
-
-    std::cout << "Starting simulation." << std::endl << std::endl;
 
     Emulated_system::set_system_time({0, 0});
 
