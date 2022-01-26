@@ -14,7 +14,7 @@
 #include <iostream>
 #include <string>
 
-enum enum_notes { C = 1, D, E, F, G, A, B }; // ???
+enum enum_notes { C = 1, D, E, F, G, A, B };
 
 const std::string notes[] = { "До", "Ре", "Ми", "Фа", "Соль", "Ля", "Си" };
 const int LIST_SIZE = 12;
@@ -24,8 +24,17 @@ std::string numberToNote(const std::string &str)
     std::string result;
     for(const auto &ch : str)
     {
+        /* Без enum
+         *
         if(isdigit(ch))
             result += notes[ch - '0' - 1] + " ";
+        */
+        if(isdigit(ch))
+        {
+            int digit = ch - '0'; // atoi
+            enum_notes note = static_cast<enum_notes>(digit);
+            result += notes[note] + " ";
+        }
     }
     return result + "\n";
 }
@@ -37,8 +46,8 @@ int main()
     for(int i = 0; i < LIST_SIZE; i++)
         std::cin >> list[i];
 
-    for(auto const &str : list)
-        std::cout << numberToNote(str);
+    for(int i = 0; i < LIST_SIZE; i++)
+        std::cout << numberToNote(list[i]);
 
     return 0;
 }
