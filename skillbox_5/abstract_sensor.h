@@ -5,6 +5,8 @@
 class Abstract_Sensor
 {
 public:
+    enum class OPERATOR { LT, LE, GT, GE, EQ, NE };
+
     Abstract_Sensor(const std::string &name);
     virtual ~Abstract_Sensor() = default;
 

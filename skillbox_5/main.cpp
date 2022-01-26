@@ -20,7 +20,11 @@ int main()
     smart_home.readConfig();
     smart_home.debugPrint();
 
-    while (1)
+    std::cout << "Starting simulation." << std::endl << std::endl;
+
+    Emulated_system::set_system_time({15, 0});
+
+    for(uint8_t i = 0; i < 48; i++)
         smart_home.sensorsEvent();
 
     return 0;

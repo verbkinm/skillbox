@@ -24,20 +24,18 @@ void Smart_Home::readConfig()
 
     yard_ligth->setWorkTime({16, 1}, {5, 0});
 
-    thermometer_1->addConditionOn({*yard_water, 0, Device::OPERATOR::LT});
-    thermometer_1->addConditionOff({*yard_water, 5, Device::OPERATOR::GT});
+    thermometer_1->addConditionOn({*yard_water, 0, Abstract_Sensor::OPERATOR::LT});
+    thermometer_1->addConditionOff({*yard_water, 5, Abstract_Sensor::OPERATOR::GT});
 
-    thermometer_2->addConditionOn({*home_heating, 22, Device::OPERATOR::LT});
-    thermometer_2->addConditionOn({*conditioner, 30, Device::OPERATOR::GE});
+    thermometer_2->addConditionOn({*home_heating, 22, Abstract_Sensor::OPERATOR::LT});
+    thermometer_2->addConditionOn({*conditioner, 30, Abstract_Sensor::OPERATOR::GE});
 
-    thermometer_2->addConditionOff({*home_heating, 25, Device::OPERATOR::GE});
-    thermometer_2->addConditionOff({*conditioner, 25, Device::OPERATOR::LE});
+    thermometer_2->addConditionOff({*home_heating, 25, Abstract_Sensor::OPERATOR::GE});
+    thermometer_2->addConditionOff({*conditioner, 25, Abstract_Sensor::OPERATOR::LE});
 
-    outdoor_motion->addConditionOn({*yard_ligth, true, Device::OPERATOR::EQ});
-    outdoor_motion->addConditionOff({*yard_ligth, false, Device::OPERATOR::EQ});
+    outdoor_motion->addConditionOn({*yard_ligth, true, Abstract_Sensor::OPERATOR::EQ});
+    outdoor_motion->addConditionOff({*yard_ligth, false, Abstract_Sensor::OPERATOR::EQ});
 
-//    _devices.push_back(std::move(main_power));
-//    _devices.push_back(std::move(main_sockets));
     _devices.push_back(std::move(home_light));
     _devices.push_back(std::move(yard_ligth));
     _devices.push_back(std::move(home_heating));
@@ -57,11 +55,12 @@ void Smart_Home::sensorsEvent()
     double t1 = 0, t2 = 0;
     std::string motion = "no", ligth = "off";
 
-    int h = 0, m = 0;
-    char d;
+    // При вводе времени в ручном режиме:
+//    int h = 0, m = 0;
+//    char d;
 
-    std::cout << std::endl << "Input data (time, temperature on yard, temperature in home, motion, light)." << std::endl
-              << "Example: 16:35 20.2 -5 yes on" << std::endl
+    std::cout << std::endl << "Input data (temperature on yard, temperature in home, motion(yes/no), light(on/off))." << std::endl
+              << "Example: 20.2 -5 yes on" << std::endl
               << "d - print debug information" << std::endl
               << std::endl;
     std::cout << ">> ";
@@ -70,7 +69,7 @@ void Smart_Home::sensorsEvent()
     std::cout << std::endl;
 
     std::stringstream stream(input);
-    stream >> h >> d >> m >> t1 >> t2 >> motion >> ligth;
+    stream >> /*h >> d >> m >>*/ t1 >> t2 >> motion >> ligth;
 
     if(input == "d")
     {
@@ -78,7 +77,10 @@ void Smart_Home::sensorsEvent()
         return;
     }
 
-    Emulated_system::set_system_time({h, m});
+    //При вводе времени в ручном режиме:
+    //Emulated_system::set_system_time({h, m});
+
+    Emulated_system::set_system_time(Emulated_system::_system_time() + Time_of_day(1, 0));
 
     auto it_sens = _sensors.begin();
     static_cast<Sensor<double>*>(it_sens->get())->setValue(t1);
@@ -92,7 +94,6 @@ void Smart_Home::sensorsEvent()
     static_cast<Sensor<bool>*>(it_sens->get())->setValue(mov);
 
     auto it_dev = _devices.begin();
-//    it_dev++;it_dev++;
 
     if(ligth == "on")
         it_dev->get()->enable();
@@ -122,7 +123,6 @@ void Smart_Home::debugPrint() const
         sensor.get()->printData();
         std::cout << std::endl << std::endl;
     }
-
 
     std::cout << "==============================" << std::endl;
 }

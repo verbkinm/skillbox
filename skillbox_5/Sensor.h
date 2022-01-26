@@ -16,10 +16,11 @@ public:
     const T &getValue() const;
     void setValue(const T &newValue);
 
-    struct CONDITION {
+    struct CONDITION
+    {
         Device &device;
         T value;
-        Device::OPERATOR op;
+        Abstract_Sensor::OPERATOR op;
     };
 
     void addConditionOn(CONDITION cond);
@@ -78,27 +79,27 @@ void Sensor<T>::checkConditions()
     {
         switch (cond.op)
         {
-        case Device::OPERATOR::LT:
+        case Abstract_Sensor::OPERATOR::LT:
             if(getValue() < cond.value)
                 cond.device.enable();
             break;
-        case Device::OPERATOR::LE:
+        case Abstract_Sensor::OPERATOR::LE:
             if(getValue() <= cond.value)
                 cond.device.enable();
             break;
-        case Device::OPERATOR::GT:
+        case Abstract_Sensor::OPERATOR::GT:
             if(getValue() > cond.value)
                 cond.device.enable();
             break;
-        case Device::OPERATOR::GE:
+        case Abstract_Sensor::OPERATOR::GE:
             if(getValue() >= cond.value)
                 cond.device.enable();
             break;
-        case Device::OPERATOR::EQ:
+        case Abstract_Sensor::OPERATOR::EQ:
             if(getValue() == cond.value)
                 cond.device.enable();
             break;
-        case Device::OPERATOR::NE:
+        case Abstract_Sensor::OPERATOR::NE:
             if(getValue() != cond.value)
                 cond.device.enable();
             break;
@@ -109,27 +110,27 @@ void Sensor<T>::checkConditions()
     {
         switch (cond.op)
         {
-        case Device::OPERATOR::LT:
+        case Abstract_Sensor::OPERATOR::LT:
             if(getValue() < cond.value)
                 cond.device.disable();
             break;
-        case Device::OPERATOR::LE:
+        case Abstract_Sensor::OPERATOR::LE:
             if(getValue() <= cond.value)
                 cond.device.disable();
             break;
-        case Device::OPERATOR::GT:
+        case Abstract_Sensor::OPERATOR::GT:
             if(getValue() > cond.value)
                 cond.device.disable();
             break;
-        case Device::OPERATOR::GE:
+        case Abstract_Sensor::OPERATOR::GE:
             if(getValue() >= cond.value)
                 cond.device.disable();
             break;
-        case Device::OPERATOR::EQ:
+        case Abstract_Sensor::OPERATOR::EQ:
             if(getValue() == cond.value)
                 cond.device.disable();
             break;
-        case Device::OPERATOR::NE:
+        case Abstract_Sensor::OPERATOR::NE:
             if(getValue() != cond.value)
                 cond.device.disable();
             break;

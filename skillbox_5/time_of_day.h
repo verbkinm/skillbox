@@ -18,6 +18,8 @@ public:
     int hours() const;
     int minutes() const;
 
+    int total_minutes() const;
+
     void setHours(int h);
     void setMinutes(int m);
 
@@ -32,8 +34,6 @@ public:
     friend bool operator!=(const Time_of_day &lhs, const Time_of_day &rhs);
     friend bool operator<=(const Time_of_day &lhs, const Time_of_day &rhs);
     friend bool operator>=(const Time_of_day &lhs, const Time_of_day &rhs);
-
-    int total_minutes() const;
 
 private:
     int _hours;

@@ -10,8 +10,6 @@
 class Device
 {
 public:
-    enum class OPERATOR { LT, LE, GT, GE, EQ, NE };
-
     Device(const std::string &name);
     virtual ~Device() = default;
 
@@ -20,7 +18,7 @@ public:
     void enable();
     void disable();
 
-    void setWorkTime(Time_of_day from, Time_of_day to);
+    void setWorkTime(const Time_of_day &from, const Time_of_day &to);
     bool isWorked() const;
 
     virtual void setState(bool newState);

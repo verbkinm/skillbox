@@ -40,7 +40,7 @@ int Smart_Light::currentColorTemp() const
 
             if(interval.time_from < interval.time_to)
             {
-                old = std::abs(interval.time_from.total_minutes() - currentTime.total_minutes()/* - interval.time_to.total_minutes()*/);
+                old = std::abs(interval.time_from.total_minutes() - currentTime.total_minutes());
                 int converted = ((old - old_min) * new_range / old_range) + new_min;
                 return converted;
             }
@@ -70,7 +70,7 @@ void Smart_Light::setState(bool newState)
     if(!isWorked())
         return;
 
-    if(!newState && (newState == _state))
+    if(!newState && !_state)
         return;
 
     if(newState != _state)
@@ -83,7 +83,7 @@ void Smart_Light::setState(bool newState)
         else
             std::cout << "Smart light: \"" << _name << "\" is on" << " (" << currentColorTemp() << "K)" << std::endl;
     }
-    else if(newState && (newState == _state))
+    else if(newState && _state)
     {
         std::cout << "Smart light: \"" << _name << "\" (" << currentColorTemp() << "K)" << std::endl;
     }
